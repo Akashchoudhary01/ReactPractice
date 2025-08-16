@@ -1,7 +1,7 @@
 import React from "react";
 import Icons from "../Components/Icons";
 
-export default function Card({ player }) {
+export default function Card({ gameEnd ,  player , onPlay , index }) {
   let icon = <Icons />;
   if (player === "x") {
     icon = <Icons name="cross" />;
@@ -16,7 +16,7 @@ export default function Card({ player }) {
       rounded-md shadow-[4px_4px_0px_#000] 
       hover:translate-y-1 hover:shadow-[2px_2px_0px_#000] 
       transition-all bg-white"
-    >
+    onClick={()=>player =="" && !gameEnd && onPlay(index)} >
       {icon}
     </div>
   );
