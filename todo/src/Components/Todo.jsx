@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaCheck, FaRegTrashCan } from "react-icons/fa6";
+import DateTime from "./DateTime";
 
 export default function Todo() {
   const [input, setInput] = useState("");
@@ -24,15 +25,29 @@ export default function Todo() {
 
     setInput(""); // after adding empty the input fild
   };
+
+  // Remove All todos
+  const RemoveAllTodo = () => {
+    setTask([]);
+  };
+
+  //Remove Specific todo
+
+  const removeSelectdTodo = (value) => {
+    const updatedtask = task.filter((currElem) => currElem !== value);
+    setTask(updatedtask);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-black text-white">
       {/* Container aligned top center */}
       <div className="flex flex-col items-center pt-12">
         {/* Title */}
-        <h1 className="text-4xl font-bold mb-8 tracking-wide text-green-400">
+        <h1 className="text-4xl font-bold mb-4 tracking-wide text-green-400">
           Todo List
         </h1>
-
+        {/* Date and time */}
+        <DateTime />
         {/* Card Container */}
         <div className="bg-zinc-800/70 backdrop-blur-md shadow-xl rounded-2xl p-8 w-[90%] sm:w-[450px]">
           <form onSubmit={handelFormSubmit} className="flex">
@@ -72,7 +87,10 @@ export default function Todo() {
                   <button className="text-green-500 hover:text-green-400">
                     <FaCheck />
                   </button>
-                  <button className="text-red-500 hover:text-red-400">
+                  <button
+                    onClick={() => removeSelectdTodo(currElem)}
+                    className="text-red-500 hover:text-red-400"
+                  >
                     <FaRegTrashCan />
                   </button>
                 </div>
@@ -80,6 +98,14 @@ export default function Todo() {
             ))}
           </ul>
         </div>
+        {task.length > 2 && (
+          <button
+            className="px-1.5 py-.5 rounded-lg bg-red-600 outline-1 text-black"
+            onClick={RemoveAllTodo}
+          >
+            Clear All
+          </button>
+        )}
       </div>
     </div>
   );
