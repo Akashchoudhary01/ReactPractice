@@ -1,29 +1,21 @@
 import React, { useState } from "react";
 import { FaCheck, FaRegTrashCan } from "react-icons/fa6";
 import DateTime from "./DateTime";
+import InputBox from "./InputBox/inputBox";
 
 export default function Todo() {
-  const [input, setInput] = useState("");
+
   const [task, setTask] = useState([]);
 
-  const handelInputSubmit = (value) => {
-    setInput(value);
-  };
 
-  const handelFormSubmit = (e) => {
-    e.preventDefault();
+  const handelFormSubmit = (value) => {
+    if (!value) return;
+    if (task.includes(value)) return;
+  
 
-    if (!input) return; //check the input is not empty
+    setTask((prevTask) => [...prevTask, value]); //save the task in an array
 
-    if (task.includes(input)) {
-      //check for duplicate task
-      setInput(""); // empty the input fild
-      return;
-    }
-
-    setTask((prevTask) => [...prevTask, input]); //save the task in an array
-
-    setInput(""); // after adding empty the input fild
+   
   };
 
   // Remove All todos
@@ -49,26 +41,8 @@ export default function Todo() {
         {/* Date and time */}
         <DateTime />
         {/* Card Container */}
-        <div className="bg-zinc-800/70 backdrop-blur-md shadow-xl rounded-2xl p-8 w-[90%] sm:w-[450px]">
-          <form onSubmit={handelFormSubmit} className="flex">
-            {/* Input */}
-            <input
-              type="text"
-              autoComplete="off"
-              value={input}
-              onChange={(e) => handelInputSubmit(e.target.value)}
-              placeholder="Add your todo..."
-              className="flex-1 px-4 py-3 rounded-l-xl bg-zinc-900 text-white border border-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:border-green-500 transition"
-            />
-            {/* Button */}
-            <button
-              type="submit"
-              className="bg-green-600 hover:bg-green-500 active:bg-green-700 text-lg font-semibold px-6 rounded-r-xl transition duration-200"
-            >
-              Add
-            </button>
-          </form>
-        </div>
+        <InputBox saveTodo={handelFormSubmit}/>
+       
 
         <div>
           <ul className="m-4 w-full grid grid-cols-2 ">
