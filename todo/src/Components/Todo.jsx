@@ -56,7 +56,7 @@ export default function Todo() {
         </div>
 
         <div>
-          <ul className="m-4 w-full grid grid-cols-2 w-full">
+          <ul className="m-4 w-full grid grid-cols-2 ">
             {task.map((currElem, index) => (
               <li
                 key={index}
