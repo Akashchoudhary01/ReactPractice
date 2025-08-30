@@ -1,38 +1,45 @@
-import React, { useState  } from "react";
+import React, { useState, useEffect } from "react";
 import DateTime from "./DateTime";
 import InputBox from "./InputBox/inputBox";
 import DisplayTodo from "./DisplayTodo/DisplayTodo";
 import ClearAll from "./DisplayTodo/ClearAll";
-import { 
-  setTodoDataToLocalStorage , 
-   getTodoDataFromLocalStorage
-  
- } from "./LocalStorage/LocalStorage";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  setTodoDataToLocalStorage,
+  getTodoDataFromLocalStorage,
+} from "./LocalStorage/LocalStorage";
 
 export default function Todo() {
-  const [task , setTask] = useState(()=> getTodoDataFromLocalStorage());
+  const [task, setTask] = useState(() => getTodoDataFromLocalStorage());
 
   const handelFormSubmit = (input) => {
     const { id, content, checked } = input;
-    if (!content) return;
+    if (!content) {
+      toast.error("⚠️ Task cannot be empty!");
+      return;
+    }
 
-    // check if the todo alredy exits
+    // check if the todo already exists
     const todoMatch = task.find((currTask) => currTask.content === content);
-    if (todoMatch) return;
-    // if (task.includes(content)) return;
+    if (todoMatch) {
+      toast.warning("⚠️ Task already exists!");
+      return;
+    }
 
-    setTask((prevTask) => [...prevTask, { id, content, checked }]); //save the task in an array
+    setTask((prevTask) => [...prevTask, { id, content, checked }]);
+    toast.success("✅ Task added successfully!");
   };
 
-   // Save whenever task changes
- 
+  // Save whenever task changes
+  useEffect(() => {
     setTodoDataToLocalStorage(task);
- 
+  }, [task]);
 
   const removeSelectdTodo = (value) => {
     const updatedtask = task.filter((currElem) => currElem.content !== value);
     setTask(updatedtask);
+    toast.success("🗑️ Todo deleted successfully!");
   };
 
   const checkedSelectedTodo = (content) => {
@@ -42,10 +49,12 @@ export default function Todo() {
         : currTask
     );
     setTask(updatedTask);
+    toast.info("✅ Status updated!");
   };
 
   const RemoveAllTodo = () => {
     setTask([]);
+    toast.error("❌ All tasks cleared!");
   };
 
   return (
@@ -58,10 +67,12 @@ export default function Todo() {
         </h1>
         {/* Date and time */}
         <DateTime />
-        {/* Card Container */}
+        {/* Input */}
         <InputBox saveTodo={handelFormSubmit} />
+        
+        {/* Todo List */}
         <div>
-          <ul className="m-4 w-full grid grid-cols-2 ">
+          <ul className="m-4 w-full grid grid-cols-2">
             {task.map((currElem) => (
               <DisplayTodo
                 key={currElem.id}
@@ -77,6 +88,17 @@ export default function Todo() {
         {/* ClearAllTask */}
         {task.length > 2 && <ClearAll onDeleteAllTodo={RemoveAllTodo} />}
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </div>
   );
 }
