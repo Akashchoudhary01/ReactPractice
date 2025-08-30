@@ -1,26 +1,52 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 import DateTime from "./DateTime";
 import InputBox from "./InputBox/inputBox";
 import DisplayTodo from "./DisplayTodo/DisplayTodo";
 import ClearAll from "./DisplayTodo/ClearAll";
+import { 
+  setTodoDataToLocalStorage , 
+   getTodoDataFromLocalStorage
+  
+ } from "./LocalStorage/LocalStorage";
+
 
 export default function Todo() {
-  const [task, setTask] = useState([]);
+  const [task , setTask] = useState(()=> getTodoDataFromLocalStorage());
 
-  const handelFormSubmit = (value) => {
-    if (!value) return;
-    if (task.includes(value)) return;
-    setTask((prevTask) => [...prevTask, value]); //save the task in an array
+  const handelFormSubmit = (input) => {
+    const { id, content, checked } = input;
+    if (!content) return;
+
+    // check if the todo alredy exits
+    const todoMatch = task.find((currTask) => currTask.content === content);
+    if (todoMatch) return;
+    // if (task.includes(content)) return;
+
+    setTask((prevTask) => [...prevTask, { id, content, checked }]); //save the task in an array
   };
 
+   // Save whenever task changes
+ 
+    setTodoDataToLocalStorage(task);
+ 
+
   const removeSelectdTodo = (value) => {
-    const updatedtask = task.filter((currElem) => currElem !== value);
+    const updatedtask = task.filter((currElem) => currElem.content !== value);
     setTask(updatedtask);
+  };
+
+  const checkedSelectedTodo = (content) => {
+    const updatedTask = task.map((currTask) =>
+      currTask.content === content
+        ? { ...currTask, checked: !currTask.checked }
+        : currTask
+    );
+    setTask(updatedTask);
   };
 
   const RemoveAllTodo = () => {
     setTask([]);
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-black text-white">
@@ -36,24 +62,21 @@ export default function Todo() {
         <InputBox saveTodo={handelFormSubmit} />
         <div>
           <ul className="m-4 w-full grid grid-cols-2 ">
-            {task.map((currElem, index) => (
+            {task.map((currElem) => (
               <DisplayTodo
-                key={index}
-                data={currElem}
+                key={currElem.id}
+                data={currElem.content}
+                checked={currElem.checked}
                 onHandelDeleteTodo={removeSelectdTodo}
+                onHandelCheckedTodo={checkedSelectedTodo}
               />
             ))}
           </ul>
         </div>
 
-        
         {/* ClearAllTask */}
-         {task.length > 2 && (
-           <ClearAll onDeleteAllTodo = {RemoveAllTodo} />
-         
-        )}
+        {task.length > 2 && <ClearAll onDeleteAllTodo={RemoveAllTodo} />}
       </div>
     </div>
   );
 }
-

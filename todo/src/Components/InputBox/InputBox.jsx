@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 
 export default function InputBox({saveTodo}) {
-const [input , setInput] = useState("");
+const [input , setInput] = useState({});
 
     const handelInputSubmit = (value) => {
-    setInput(value);
+    setInput({id:value , content : value , checked:false });
     };
 
     const handelFormSubmit = (e)=>{
       e.preventDefault();
       saveTodo(input);
-      setInput(""); // after adding empty the input fild
+      setInput({id:"" , content:""  , checked :false}); // after adding empty the input fild
     }
 
   return (
@@ -21,7 +21,7 @@ const [input , setInput] = useState("");
                   <input
                     type="text"
                     autoComplete="off"
-                    value={input}
+                    value={input.content}
                     onChange={(e) => handelInputSubmit(e.target.value)}
                     placeholder="Add your todo..."
                     className="flex-1 px-4 py-3 rounded-l-xl bg-zinc-900 text-white border border-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:border-green-500 transition"
