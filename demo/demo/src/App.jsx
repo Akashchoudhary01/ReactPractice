@@ -2,6 +2,7 @@ import React from "react";
 import Toggle from "./Projects/ToggleSwitch/Toggle";
 import ShortCircit from "./components/ShortCircit";
 import Counter from "./UseStateChallange/Counter";
+import Registration from "./Registration/Registration";
 
 
 export default function App() {
@@ -10,8 +11,8 @@ export default function App() {
  
 //  <Toggle/>
 // <ShortCircit/>
-<Counter/>
-
+//<Counter/>
+<Registration/>
 
   );
 }
