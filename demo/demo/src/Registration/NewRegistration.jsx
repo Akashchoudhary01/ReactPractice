@@ -1,28 +1,24 @@
 import React, { useState } from "react";
 
 export default function NewRegistration() {
-    const [user , setUser] = useState({
-        firstName:"",
-        lastName:"",
-        email:"",
-        password:"",
-        phoneNumber:""
-    })
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+  });
 
-  const HandelInputChange = (e) => {
-    const {name , value} = e.target;
-    setUser((prev) => ({...prev , [name] : value}))
-   
-      
-    }
-  
-  const HandelFormSubmit = (event) => {
-    event.preventDefault();
-    console.log(user);
+  const HandelInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prev) => ({ ...prev, [name]: value }));
   };
 
+  const HandelFormSubmit = (e) => {
+    e.preventDefault();
+  };
 
-  localStorage.setItem("userDetails" , JSON.stringify(user));
+  localStorage.setItem("userDetails", JSON.stringify(user));
 
   return (
     <div
