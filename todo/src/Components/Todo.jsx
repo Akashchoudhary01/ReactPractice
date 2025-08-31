@@ -72,7 +72,8 @@ export default function Todo() {
         
         {/* Todo List */}
         <div>
-          <ul className="m-4 w-full grid grid-cols-2">
+         <ul className="m-4 w-full flex flex-col sm:grid sm:grid-cols-2 gap-2">
+
             {task.map((currElem) => (
               <DisplayTodo
                 key={currElem.id}
@@ -99,6 +100,11 @@ export default function Todo() {
         pauseOnHover
         draggable
       />
+
+      <div className="absolute bottom-3 right-3">
+        <p>made with ❤️ by Akash</p>
+      </div>
     </div>
+    
   );
 }
