@@ -4,6 +4,8 @@ import ShortCircit from "./components/ShortCircit";
 import Counter from "./UseStateChallange/Counter";
 import Registration from "./Registration/Registration";
 import NewRegistration from "./Registration/NewRegistration";
+import Login from "./Login/Login";
+import ContectForm from "./ContactForm.jsx/ContectForm";
 
 
 export default function App() {
@@ -14,7 +16,8 @@ export default function App() {
 // <ShortCircit/>
 //<Counter/>
 //<Registration/>
-<NewRegistration/>
-
+//<NewRegistration/>
+//<Login/>
+<ContectForm/>
   );
 }
