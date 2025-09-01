@@ -3,21 +3,49 @@ import React, { useEffect, useState } from "react";
 export default function HowToNotHandelApi() {
   const [apiData, setApiData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const API = "https://pokeapi.co/api/v2/pokemon/pikachu";
 
-  function PokemonData() {
-    fetch(API)
-      .then((res) => res.json())
-      .then((data) => {
-        setApiData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
+//   Using Promise
+//   function PokemonData() {
+//     fetch(API)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setApiData(data);
+//         setLoading(false);
+//         console.log(data);
+        
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         setLoading(false);
+//         setError(err);
+//         console.log(err.message);
+        
+        
+//       });
+//   }
+
+// Using Async Await
+const PokemonData= async()=>{
+    try {
+      const res =  await fetch(API);
+      const data = await res.json();
+      setApiData(data);
+      setLoading(false);
+        
+    } catch (err) {
         console.log(err);
-        setLoading(false);
-      });
-  }
+         setLoading(false);
+        setError(err);
+        console.log(err.message);
+
+        
+    }
+
+
+}
 
   useEffect(() => {
     PokemonData();
@@ -28,6 +56,15 @@ export default function HowToNotHandelApi() {
       <div className="h-screen flex justify-center  items-center bg-gradient-to-r from-purple-400 via-pink-300 to-yellow-300">
         <h1 className="text-4xl font-bold text-black animate-pulse">
           Loading ...
+        </h1>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="h-screen flex justify-center  items-center bg-gradient-to-r from-purple-400 via-pink-300 to-yellow-300">
+        <h1 className="text-4xl font-bold text-black animate-pulse">
+         Error: {error.message}
         </h1>
       </div>
     );
@@ -45,6 +82,9 @@ export default function HowToNotHandelApi() {
       />
       <p className="text-lg text-gray-700 font-medium">
         Height: {apiData.height} | Weight: {apiData.weight}
+      </p>
+      <p className="text-lg text-gray-700 font-medium">
+        Speed: {apiData.stats[5].base_stat}
       </p>
     </div>
   );
