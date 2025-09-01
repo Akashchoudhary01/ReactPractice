@@ -6,6 +6,9 @@ import Registration from "./Registration/Registration";
 import NewRegistration from "./Registration/NewRegistration";
 import Login from "./Login/Login";
 import ContectForm from "./ContactForm.jsx/ContectForm";
+import Counter1 from "./UseEffectChallange/Counter1";
+import CleanUp from "./UseEffectChallange/CleanUp";
+import HowToNotHandelApi from "./UseEffectChallange/HowToNotHandelApi";
 
 
 export default function App() {
@@ -18,6 +21,9 @@ export default function App() {
 //<Registration/>
 //<NewRegistration/>
 //<Login/>
-<ContectForm/>
+//<ContectForm/>
+//<Counter1/>
+//<CleanUp/>
+<HowToNotHandelApi/>
   );
 }
