@@ -5,10 +5,12 @@ import Search from "../Search/Search";
 export default function Pokedex() {
   const [pokemon, setPokemon] = useState([]);
   const [loading, setIsLoading] = useState(true);
-  const [error, setIsError] = useState(false);
-  const [search, setSearch] = useState("");
+  const [prevURL , setPrevUrl] = useState('');
+  const [nextURL , setNextUrl] = useState('');
+  const [search , setSearch] = useState('');
 
-  const API = `https://pokeapi.co/api/v2/pokemon?limit=30`;
+
+  const [API , setAPI] = useState(`https://pokeapi.co/api/v2/pokemon?limit=50`);
 
   const fetchPokemon = async () => {
     try {
@@ -21,6 +23,9 @@ export default function Pokedex() {
         return data;
       });
       console.log(data);
+      // next and prev Url
+      setPrevUrl(data.previous);
+      setNextUrl(data.next);
       
 
       const finalData = await Promise.all(detailedData);
@@ -31,13 +36,13 @@ export default function Pokedex() {
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-      setIsError(true);
+      
     }
   };
 
   useEffect(() => {
     fetchPokemon();
-  }, []);
+  }, [API]);
 
   // Easy Search Funcnility
 
@@ -50,16 +55,6 @@ export default function Pokedex() {
       <div className="flex justify-center items-center h-screen w-screen">
         <h1 className="text-4xl  tracking-wider text-black drop-shadow-lg">
           Loading...
-        </h1>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-screen w-screen">
-        <h1 className="text-4xl font-bold tracking-wider text-red-500">
-          Something went wrong!
         </h1>
       </div>
     );
@@ -84,8 +79,16 @@ export default function Pokedex() {
 
       {/* Pagination */}
       <div className="justify-center flex gap-2 ">
-        <button className="outline-1 px-2 rounded-md py-1">Prev</button>
-        <button className="outline-1 px-2 py-1 rounded-md">Next</button>
+        <button
+        onClick={()=> setAPI(prevURL)}
+        disabled= {prevURL === null}
+        className="outline-1 px-2 rounded-md py-1"
+        >Prev</button>
+        <button
+        onClick={()=> setAPI(nextURL)}
+        disabled= {nextURL === null}
+         className="outline-1 px-2 py-1 rounded-md"
+         >Next</button>
         
       </div>
 
