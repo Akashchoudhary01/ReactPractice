@@ -20,6 +20,8 @@ export default function Pokedex() {
         const data = await res.json();
         return data;
       });
+      console.log(data);
+      
 
       const finalData = await Promise.all(detailedData);
       setPokemon(finalData);
@@ -75,12 +77,17 @@ export default function Pokedex() {
       {/* PokemonCard */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mx-7  gap-6 my-8">
         {filteredPokemon.map((currElem) => {
-          return <PokemonCard key={currElem.id} data={currElem} />;
+          return <PokemonCard key={currElem.id} id={currElem.id} data={currElem} />;
         })}
 
       </div>
 
       {/* Pagination */}
+      <div className="justify-center flex gap-2 ">
+        <button className="outline-1 px-2 rounded-md py-1">Prev</button>
+        <button className="outline-1 px-2 py-1 rounded-md">Next</button>
+        
+      </div>
 
 
     </div>

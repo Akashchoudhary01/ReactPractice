@@ -1,8 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default function PokemonCard({ data }) {
+export default function PokemonCard({ data , id}) {
   return (
     <div className="w-68 bg-white rounded-xl shadow-2xl p-4 flex flex-col items-center hover:scale-105 transition-transform">
+      <Link 
+  to={`/pokemon/${id}`} 
+  className="flex  w-68 bg-white rounded-xl shadow-2xl p-4  flex-col items-center hover:scale-105 transition-transform"
+>
       <img
         src={data.sprites.other.dream_world.front_default}
         className="w-28 h-28 object-contain"
@@ -23,6 +28,7 @@ export default function PokemonCard({ data }) {
         <p>Speed: {data.stats[5].base_stat}</p>
         <p>Attack: {data.stats[1].base_stat}</p>
       </div>
+      </Link>
     </div>
   );
 }
