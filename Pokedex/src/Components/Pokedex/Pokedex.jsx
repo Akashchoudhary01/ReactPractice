@@ -70,7 +70,7 @@ export default function Pokedex() {
       <Search value={search} setSearch={setSearch} />
 
       {/* PokemonCard */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mx-7  gap-6 my-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 mx-7  gap-6 my-8">
         {filteredPokemon.map((currElem) => {
           return <PokemonCard key={currElem.id} id={currElem.id} data={currElem} />;
         })}
