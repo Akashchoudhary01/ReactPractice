@@ -7,7 +7,7 @@ const age = "22";
 
 export const BioProvider = ({ children }) => {
   return (
-    <BioContext.Provider value={name , age}>
+    <BioContext.Provider value={{name , age }}>
       {children}
     </BioContext.Provider>
   );
