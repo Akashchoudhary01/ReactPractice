@@ -1,9 +1,12 @@
 import React from 'react'
+import { DarkLightTheme, ThemeProvider } from './Context/ThemeContext'
 
 export default function App() {
   return (
     <div className=' bg-green-400 h-lvh w-lvw'>
-      <h1>HELLO REACT</h1>
+        <ThemeProvider>
+          <DarkLightTheme/>
+        </ThemeProvider>
       
     </div>
   )
