@@ -1,14 +1,11 @@
 import React from 'react'
-import { BioContext } from './useContextApi'
-import Home from './useContextApi/Home'
+import CounterReducer from './hooks/UseReducer/CounterReducer'
 
 export default function App() {
   return (
     <div>
-      <BioContext>
-        <Home/>
-      </BioContext>
-      
+      <CounterReducer/>
+  
     </div>
   )
 }
