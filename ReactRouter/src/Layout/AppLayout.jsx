@@ -7,7 +7,11 @@ export default function AppLayout() {
   return (
     <div>
       <Header/>
+        <main className="mt-20"> 
+
+
       <Outlet/>
+      </main>
       <Footer/>
     </div>
   )
