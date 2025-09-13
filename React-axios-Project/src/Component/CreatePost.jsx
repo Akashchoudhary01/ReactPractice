@@ -1,15 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CreateData } from '../Utils/PostUtils'
 
-export default function CreatePost({ data, setData }) {
+export default function CreatePost({ data, setData , updateApiData}) {
   const [addData, setAddData] = useState({
     title: "",
     body: ""
   })
 
+  // get the updated data at form 
+  useEffect(()=>{
+    updateApiData && setAddData({
+      title : updateApiData.title || "",
+      body : updateApiData.body || "",
+    })
+
+  } , [updateApiData])
+
+
+
   // Input Change
   const handelInputChange = (e) => {
     const { name, value } = e.target
+
+
 
     setAddData((prevData) => ({
       ...prevData,
