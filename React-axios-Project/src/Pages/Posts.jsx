@@ -50,6 +50,7 @@ export default function Posts() {
         data={data}
         setData={setData}
         updateApiData = {updateApiData}
+        setUpdateApiData = {setUpdateApiData}
       />
 
       <hr className="w-3/4 border-white my-2 border-t-2 p-4" />

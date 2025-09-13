@@ -20,3 +20,7 @@ export const CreateData = (post)=>{
     return API.post("/Posts" , post)
 }
 
+// to Update a new  Post
+export const UpdateData = (id , post)=>{
+    return API.put(`/Posts/${id}` , post)
+}
